@@ -5,7 +5,7 @@ import { cop, pct, todayBogota } from '@/lib/format'
 import { monthlyRate } from '@/lib/finance'
 import UpcomingList from '@/components/upcoming-list'
 import type { MonthlySummary, PocketBalance } from '@/lib/types'
-import { ArrowRightLeft, Target, TrendingUp, Wallet } from 'lucide-react'
+import { ArrowRightLeft, Settings, Target, TrendingUp, Wallet } from 'lucide-react'
 
 const LINKS = [
   { href: '/transferir', label: 'Mover plata', icon: ArrowRightLeft },
@@ -47,9 +47,10 @@ export default async function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/ajustes"
-              className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15"
+              aria-label="Ajustes"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white/90 backdrop-blur-sm transition hover:bg-white/15"
             >
-              Tema
+              <Settings className="h-4 w-4" strokeWidth={2.2} />
             </Link>
             <form action="/auth/signout" method="post">
               <button className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15">

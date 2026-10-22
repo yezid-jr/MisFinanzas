@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  --bg-1: #f8fbff;
+  --bg-2: #eef6ff;
+  --panel: rgba(255, 255, 255, 0.8);
+  --panel-strong: rgba(255, 255, 255, 0.94);
+  --line: rgba(148, 163, 184, 0.18);
+  --shadow-soft: 0 24px 44px rgba(15, 23, 42, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.12), transparent 25%),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.18);
+}

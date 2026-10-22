@@ -1,0 +1,196 @@
+'use client'
+
+import { useEffect, useState, useTransition } from 'react'
+import { registerDebt } from '@/lib/actions'
+import { cop } from '@/lib/format'
+import { createClient } from '@/lib/supabase/client'
+import type { Debt } from '@/lib/types'
+import { Feedback, Field, SubmitButton, inputClass } from '@/components/ui'
+
+const labelByKind: Record<string, string> = {
+  student_loan: 'ICETEX',
+  credit_card: 'Tarjeta',
+  bnpl: 'BNPL',
+  person: 'Personal',
+  other: 'Otra',
+}
+
+const kinds = [
+  { value: 'student_loan', label: 'ICETEX' },
+  { value: 'credit_card', label: 'Tarjeta' },
+  { value: 'bnpl', label: 'Addi / BNPL' },
+  { value: 'person', label: 'Personal' },
+  { value: 'other', label: 'Otra' },
+] as const
+
+export default function DebtsPage() {
+  const [debts, setDebts] = useState<Debt[]>([])
+  const [loading, setLoading] = useState(true)
+  const [name, setName] = useState('')
+  const [kind, setKind] = useState<(typeof kinds)[number]['value']>('student_loan')
+  const [amount, setAmount] = useState('')
+  const [rateEa, setRateEa] = useState('')
+  const [cutoffDay, setCutoffDay] = useState('28')
+  const [dueDay, setDueDay] = useState('16')
+  const [notes, setNotes] = useState('')
+  const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null)
+  const [pending, startTransition] = useTransition()
+
+  useEffect(() => {
+    const loadDebts = async () => {
+      const supabase = createClient()
+      const { data } = await supabase.from('debts').select('*').eq('is_active', true).order('name')
+      setDebts((data ?? []) as Debt[])
+      setLoading(false)
+    }
+
+    loadDebts()
+  }, [])
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const parsedAmount = Number(amount.replace(/[^\d]/g, ''))
+    const parsedRate = rateEa ? Number(rateEa.replace(',', '.')) : null
+
+    startTransition(async () => {
+      const res = await registerDebt({
+        name: name.trim(),
+        kind,
+        amount: parsedAmount,
+        rateEa: parsedRate,
+        cutoffDay: Number(cutoffDay || 0),
+        dueDay: Number(dueDay || 0),
+        notes: notes.trim() || undefined,
+      })
+
+      if (res.ok) {
+        setResult({ ok: true, message: 'Deuda registrada correctamente ✅' })
+        setName('')
+        setAmount('')
+        setRateEa('')
+        setNotes('')
+        const supabase = createClient()
+        const { data } = await supabase.from('debts').select('*').eq('is_active', true).order('name')
+        setDebts((data ?? []) as Debt[])
+      } else {
+        setResult({ ok: false, message: res.error })
+      }
+    })
+  }
+
+  const total = debts.reduce((sum, debt) => sum + Number(debt.credit_limit ?? 0), 0)
+
+  return (
+    <main className="space-y-5">
+      <header className="rounded-[28px] bg-[linear-gradient(135deg,#111827_0%,#312e81_100%)] p-5 text-white shadow-[0_24px_44px_rgba(17,24,39,0.28)]">
+        <p className="text-xs uppercase tracking-[0.18em] text-violet-100/80">Deudas</p>
+        <h1 className="mt-2 text-3xl font-bold">{cop(total)}</h1>
+        <p className="mt-1 text-sm text-violet-100/80">Saldo total comprometido</p>
+      </header>
+
+      <section className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Resumen</h2>
+        {loading ? (
+          <p className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm text-slate-600">Cargando deudas…</p>
+        ) : debts.length === 0 ? (
+          <p className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm text-slate-600">
+            Aún no registras deudas. Agrega la primera para empezar a controlarlas.
+          </p>
+        ) : (
+          debts.map((debt) => (
+            <article key={debt.id} className="rounded-[24px] border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-base font-semibold text-slate-900">{debt.name}</p>
+                  <p className="mt-1 text-xs text-slate-500">{labelByKind[debt.kind] ?? debt.kind}</p>
+                </div>
+                <span className="rounded-full bg-violet-50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-violet-700">
+                  {debt.due_day ? `Vence ${debt.due_day}` : 'Sin fecha'}
+                </span>
+              </div>
+
+              <div className="mt-4 flex items-end justify-between gap-3">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Saldo</p>
+                  <p className="mt-1 text-xl font-bold text-slate-900">{cop(Number(debt.credit_limit ?? 0))}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Tasa EA</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-700">
+                    {debt.rate_ea != null ? `${debt.rate_ea}%` : '—'}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))
+        )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Agregar deuda</h2>
+        <div className="rounded-[24px] border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+          <form onSubmit={onSubmit} className="space-y-4">
+            <Field label="Nombre de la deuda">
+              <input className={inputClass} value={name} onChange={(e) => setName(e.target.value)} placeholder="ICETEX" required />
+            </Field>
+
+            <Field label="Tipo">
+              <select className={inputClass} value={kind} onChange={(e) => setKind(e.target.value as (typeof kinds)[number]['value'])}>
+                {kinds.map((k) => (
+                  <option key={k.value} value={k.value}>
+                    {k.label}
+                  </option>
+                ))}
+              </select>
+            </Field>
+
+            <Field label="Saldo actual">
+              <input
+                inputMode="numeric"
+                className={inputClass}
+                value={amount ? Number(amount).toLocaleString('es-CO') : ''}
+                onChange={(e) => setAmount(e.target.value.replace(/[^\d]/g, ''))}
+                placeholder="35000000"
+                required
+              />
+            </Field>
+
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Tasa EA %">
+                <input
+                  inputMode="decimal"
+                  className={inputClass}
+                  value={rateEa}
+                  onChange={(e) => setRateEa(e.target.value)}
+                  placeholder="28.15"
+                />
+              </Field>
+
+              <Field label="Día de corte">
+                <input type="number" min={1} max={31} className={inputClass} value={cutoffDay} onChange={(e) => setCutoffDay(e.target.value)} />
+              </Field>
+            </div>
+
+            <Field label="Día límite de pago">
+              <input type="number" min={1} max={31} className={inputClass} value={dueDay} onChange={(e) => setDueDay(e.target.value)} />
+            </Field>
+
+            <Field label="Nota (opcional)">
+              <input className={inputClass} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Pago en 3 cuotas" />
+            </Field>
+
+            {amount && (
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Resumen</p>
+                <p className="mt-2 font-semibold text-slate-900">{cop(Number(amount))}</p>
+              </div>
+            )}
+
+            <Feedback result={result} />
+            <SubmitButton pending={pending}>Guardar deuda</SubmitButton>
+          </form>
+        </div>
+      </section>
+    </main>
+  )
+}

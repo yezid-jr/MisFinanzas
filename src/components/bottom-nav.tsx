@@ -26,11 +26,17 @@ export default function BottomNav() {
             <li key={item.href} className="flex-1">
               <Link
                 href={item.href}
-                className={`flex flex-col items-center justify-center gap-1 rounded-2xl py-2 text-[11px] font-medium transition-all ${
+                className="flex flex-col items-center justify-center gap-1 rounded-2xl py-2 text-[11px] font-medium transition-all"
+                style={
                   active
-                    ? 'border border-[#d97724]/30 bg-[#1e1e23] text-[#e08a3e] shadow-[0_8px_20px_rgba(217,119,36,0.12)]'
-                    : 'text-[#8a8a93] hover:text-white'
-                }`}
+                    ? {
+                        borderColor: 'rgba(var(--brand-rgb), 0.3)',
+                        background: '#1e1e23',
+                        color: 'var(--brand-strong)',
+                        boxShadow: '0 8px 20px rgba(var(--brand-rgb), 0.12)',
+                      }
+                    : undefined
+                }
               >
                 <Icon className="h-4 w-4" strokeWidth={2.1} />
                 {item.label}

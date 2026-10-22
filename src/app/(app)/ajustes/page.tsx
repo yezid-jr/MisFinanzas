@@ -24,7 +24,11 @@ export default async function SettingsPage() {
           Descárgalos cuando quieras. Te recomiendo hacerlo una vez al mes y guardarlo en tu Google Drive.
         </p>
         <div className="grid grid-cols-2 gap-2 text-center text-sm">
-          <a href="/api/export" className="rounded-xl bg-[#d97724] px-3 py-3 font-medium text-white">
+          <a
+            href="/api/export"
+            className="rounded-xl px-3 py-3 font-medium text-white"
+            style={{ background: 'var(--brand)' }}
+          >
             Respaldo completo (JSON)
           </a>
           <a href="/api/export?formato=csv" className="rounded-xl border border-[#282830] bg-[#0d0d0e] px-3 py-3 text-white">

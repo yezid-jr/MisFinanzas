@@ -23,8 +23,10 @@ function adjustHex(hex: string, amount: number) {
 
 function applyTheme(theme: ThemeMode, accent: string) {
   const root = document.documentElement
-  const safeAccent = accent || '#c4b5fd'
+  const safeAccent = accent || '#d97724'
   const { r, g, b } = hexToRgb(safeAccent)
+  const soft = adjustHex(safeAccent, 75)
+  const strong = adjustHex(safeAccent, -35)
 
   if (theme === 'dark') {
     root.dataset.theme = 'dark'
@@ -50,12 +52,12 @@ function applyTheme(theme: ThemeMode, accent: string) {
     root.style.setProperty('--surface-strong', '#f8fafc')
   }
 
-  root.style.setProperty('--brand', '#d97724')
-  root.style.setProperty('--brand-rgb', '217, 119, 36')
-  root.style.setProperty('--brand-soft', '#f7c07a')
-  root.style.setProperty('--brand-strong', '#e08a3e')
-  root.style.setProperty('--hero-start', '#d97724')
-  root.style.setProperty('--hero-end', '#0f172a')
+  root.style.setProperty('--brand', safeAccent)
+  root.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`)
+  root.style.setProperty('--brand-soft', soft)
+  root.style.setProperty('--brand-strong', strong)
+  root.style.setProperty('--hero-start', safeAccent)
+  root.style.setProperty('--hero-end', theme === 'dark' ? '#0f172a' : '#1d4ed8')
 }
 
 export default function ThemeInit() {

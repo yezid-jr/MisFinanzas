@@ -40,6 +40,8 @@ function applyTheme(theme: ThemeMode, accent: string) {
   const root = document.documentElement
   const safeAccent = accent || SWATCHES[0].value
   const { r, g, b } = hexToRgb(safeAccent)
+  const soft = adjustHex(safeAccent, 75)
+  const strong = adjustHex(safeAccent, -35)
 
   if (theme === 'dark') {
     root.dataset.theme = 'dark'
@@ -67,9 +69,9 @@ function applyTheme(theme: ThemeMode, accent: string) {
 
   root.style.setProperty('--brand', safeAccent)
   root.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`)
-  root.style.setProperty('--brand-soft', adjustHex(safeAccent, 75))
-  root.style.setProperty('--brand-strong', adjustHex(safeAccent, -35))
-  root.style.setProperty('--hero-start', adjustHex(safeAccent, 22))
+  root.style.setProperty('--brand-soft', soft)
+  root.style.setProperty('--brand-strong', strong)
+  root.style.setProperty('--hero-start', safeAccent)
   root.style.setProperty('--hero-end', theme === 'dark' ? '#0f172a' : '#1d4ed8')
 }
 
@@ -120,22 +122,24 @@ export function ThemePanel() {
             <button
               type="button"
               onClick={() => setTheme('light')}
-              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition ${
-                theme === 'light'
-                  ? 'border-[#d97724]/40 bg-[#d97724]/10 text-[#f7c07a]'
-                  : 'border-[#282830] bg-[#161619] text-[#8a8a93]'
-              }`}
+              className="rounded-xl border px-3 py-2.5 text-sm font-semibold transition"
+              style={{
+                borderColor: theme === 'light' ? 'rgba(var(--brand-rgb), 0.45)' : '#282830',
+                background: theme === 'light' ? 'rgba(var(--brand-rgb), 0.12)' : '#161619',
+                color: theme === 'light' ? 'var(--brand-strong)' : '#8a8a93',
+              }}
             >
               Claro
             </button>
             <button
               type="button"
               onClick={() => setTheme('dark')}
-              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition ${
-                theme === 'dark'
-                  ? 'border-[#d97724]/40 bg-[#d97724]/10 text-[#f7c07a]'
-                  : 'border-[#282830] bg-[#161619] text-[#8a8a93]'
-              }`}
+              className="rounded-xl border px-3 py-2.5 text-sm font-semibold transition"
+              style={{
+                borderColor: theme === 'dark' ? 'rgba(var(--brand-rgb), 0.45)' : '#282830',
+                background: theme === 'dark' ? 'rgba(var(--brand-rgb), 0.12)' : '#161619',
+                color: theme === 'dark' ? 'var(--brand-strong)' : '#8a8a93',
+              }}
             >
               Oscuro
             </button>
@@ -164,7 +168,11 @@ export function ThemePanel() {
           type="button"
           onClick={saveTheme}
           disabled={!isDirty}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#d97724_0%,#e08a3e_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_16px_32px_rgba(217,119,36,0.22)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          style={{
+            background: 'linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%)',
+            boxShadow: '0 16px 32px rgba(var(--brand-rgb), 0.22)',
+          }}
         >
           <Check className="h-4 w-4" strokeWidth={2.2} />
           Guardar cambios

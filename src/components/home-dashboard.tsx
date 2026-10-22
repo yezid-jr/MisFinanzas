@@ -49,7 +49,14 @@ export function HomeDashboard({
     <main className="space-y-4">
       <div className="flex items-center justify-between px-1 pt-1">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d97724]/40 bg-[#d97724]/15 text-sm font-bold text-[#e08a3e]">
+          <div
+            className="flex h-8 w-8 items-center justify-center rounded-full border text-sm font-bold"
+            style={{
+              borderColor: 'rgba(var(--brand-rgb), 0.4)',
+              background: 'rgba(var(--brand-rgb), 0.15)',
+              color: 'var(--brand-strong)',
+            }}
+          >
             {displayUser.charAt(0).toUpperCase()}
           </div>
           <div>
@@ -74,8 +81,11 @@ export function HomeDashboard({
         </div>
       </div>
 
-      <header className="relative overflow-hidden rounded-[24px] border border-[#282830] bg-[linear-gradient(135deg,rgba(26,26,30,0.95),rgba(18,18,22,0.96))] p-5 text-white shadow-[0_0_30px_rgba(217,119,36,0.12)]">
-        <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[#d97724]/15 blur-2xl" />
+      <header
+        className="relative overflow-hidden rounded-[24px] border border-[#282830] bg-[linear-gradient(135deg,rgba(26,26,30,0.95),rgba(18,18,22,0.96))] p-5 text-white"
+        style={{ boxShadow: '0 0 30px rgba(var(--brand-rgb), 0.12)' }}
+      >
+        <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full blur-2xl" style={{ background: 'rgba(var(--brand-rgb), 0.15)' }} />
 
         <div className="relative flex items-center justify-between">
           <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Total en tus cajas</span>
@@ -96,14 +106,17 @@ export function HomeDashboard({
 
         <div className="relative mt-4 rounded-xl border border-[#343440] bg-[#0d0d0e]/70 p-3">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#d97724]/12 text-[#e08a3e]">
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-lg"
+              style={{ background: 'rgba(var(--brand-rgb), 0.12)', color: 'var(--brand-strong)' }}
+            >
               <TrendingUp className="h-3.5 w-3.5" strokeWidth={2.3} />
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-[0.16em] text-[#8a8a93]">Rendimiento Estimado</p>
               <p className="mt-0.5 text-xs font-medium text-white">
-                Con <span className="font-bold text-[#e08a3e]">{pct(yieldEa, 2)} E.A.</span> rinden{' '}
-                <span className="font-bold text-[#e08a3e]">≈ {cop(estimatedMonthlyYield)}</span> / mes
+                Con <span className="font-bold" style={{ color: 'var(--brand-strong)' }}>{pct(yieldEa, 2)} E.A.</span> rinden{' '}
+                <span className="font-bold" style={{ color: 'var(--brand-strong)' }}>≈ {cop(estimatedMonthlyYield)}</span> / mes
               </p>
             </div>
           </div>
@@ -113,13 +126,13 @@ export function HomeDashboard({
       <section className="grid grid-cols-3 gap-2 text-center">
         <Stat label="Ingresos" value={income ?? 0} tone="text-[#22C55E]" />
         <Stat label="Gastos" value={expenses ?? 0} tone="text-[#EF4444]" />
-        <Stat label="Rend." value={yieldAmount ?? 0} tone="text-[#e08a3e]" />
+        <Stat label="Rend." value={yieldAmount ?? 0} tone="var(--brand-strong)" />
       </section>
 
       <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.25)]">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Accesos rápidos</h2>
-          <span className="text-[10px] font-medium text-[#e08a3e]">Personalizar</span>
+          <span className="text-[10px] font-medium" style={{ color: 'var(--brand-strong)' }}>Personalizar</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
@@ -129,9 +142,13 @@ export function HomeDashboard({
               <Link
                 key={l.href}
                 href={l.href}
-                className="flex items-center gap-3 rounded-xl border border-[#282830] bg-[#0d0d0e] p-2.5 text-left text-xs font-medium text-white transition hover:border-[#d97724]/50"
+                className="flex items-center gap-3 rounded-xl border border-[#282830] bg-[#0d0d0e] p-2.5 text-left text-xs font-medium text-white transition"
+                style={{ borderColor: 'rgba(var(--brand-rgb), 0.18)' }}
               >
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#282830] bg-[#161619] text-[#e08a3e]">
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#282830] bg-[#161619]"
+                  style={{ color: 'var(--brand-strong)', borderColor: 'rgba(var(--brand-rgb), 0.35)' }}
+                >
                   <Icon className="h-4 w-4" strokeWidth={2.1} />
                 </span>
                 {l.label}
@@ -144,7 +161,7 @@ export function HomeDashboard({
       <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
         <div className="flex items-center justify-between">
           <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Próximos Cobros</h2>
-          <Link href="/cobros" className="text-[10px] font-medium text-[#e08a3e]">Ver todos</Link>
+          <Link href="/cobros" className="text-[10px] font-medium" style={{ color: 'var(--brand-strong)' }}>Ver todos</Link>
         </div>
         <div className="mt-3 space-y-2">
           {soon.length === 0 ? (
@@ -161,14 +178,17 @@ export function HomeDashboard({
             <p className="text-[10px] uppercase tracking-[0.18em] text-[#8a8a93]">Deuda total</p>
             <p className="mt-1 text-2xl font-bold text-white">{cop(totalDebt)}</p>
           </div>
-          <Link href="/deudas" className="text-sm font-medium text-[#e08a3e]">Ver detalle →</Link>
+          <Link href="/deudas" className="text-sm font-medium" style={{ color: 'var(--brand-strong)' }}>Ver detalle →</Link>
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between px-1">
           <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Mis cajas</h2>
-          <span className="rounded-full bg-[#0d0d0e] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#e08a3e]">
+          <span
+            className="rounded-full bg-[#0d0d0e] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+            style={{ color: 'var(--brand-strong)' }}
+          >
             {pockets.length}
           </span>
         </div>

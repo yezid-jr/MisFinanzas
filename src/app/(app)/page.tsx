@@ -37,81 +37,101 @@ export default async function HomePage() {
   const soon = upcoming.items.filter((i) => i.days <= 30).slice(0, 3)
 
   return (
-    <main className="space-y-5">
-      <header
-        className="rounded-[28px] p-5 text-white shadow-[0_24px_44px_rgba(37,99,235,0.2)]"
-        style={{
-          background: 'linear-gradient(135deg, rgba(15,23,42,0.96) 0%, rgba(var(--brand-rgb), 0.72) 36%, rgba(var(--brand-rgb), 0.35) 100%)',
-        }}
-      >
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-blue-100/80">Total en tus cajas</p>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight">{cop(total)}</h1>
+    <main className="space-y-4">
+      <div className="flex items-center justify-between px-1 pt-1">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#d97724]/40 bg-[#d97724]/15 text-sm font-bold text-[#e08a3e]">
+            C
           </div>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/ajustes"
-              aria-label="Ajustes"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white/90 backdrop-blur-sm transition hover:bg-white/15"
-            >
-              <Settings className="h-4 w-4" strokeWidth={2.2} />
-            </Link>
-            <form action="/auth/signout" method="post">
-              <button className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15">
-                Salir
-              </button>
-            </form>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#8a8a93]">Bienvenido</p>
+            <p className="text-sm font-bold text-white">Clasy Finance</p>
           </div>
         </div>
 
-        <div className="mt-5 rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur-sm">
-          <p className="text-[10px] uppercase tracking-[0.18em] text-blue-100/80">Resumen</p>
-          <p className="mt-1 text-sm font-medium text-white/90">
-            Con {pct(yieldEa, 2)} E.A. tus cajas rinden ≈ {cop(estimatedMonthlyYield)} al mes
-          </p>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/ajustes"
+            aria-label="Ajustes"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-[#282830] bg-[#161619] text-[#8a8a93] transition hover:text-white"
+          >
+            <Settings className="h-4 w-4" strokeWidth={2.2} />
+          </Link>
+          <form action="/auth/signout" method="post">
+            <button className="rounded-full border border-[#282830] bg-[#161619] px-3 py-1.5 text-xs font-medium text-[#8a8a93] transition hover:text-white">
+              Salir
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <header
+        className="relative overflow-hidden rounded-[24px] border border-[#282830] bg-[linear-gradient(135deg,rgba(26,26,30,0.95),rgba(18,18,22,0.96))] p-5 text-white shadow-[0_0_30px_rgba(217,119,36,0.12)]"
+      >
+        <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[#d97724]/15 blur-2xl" />
+
+        <div className="relative flex items-center justify-between">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Total en tus cajas</span>
+          <button className="rounded-full border border-[#282830] bg-[#161619] p-1.5 text-[#8a8a93]">
+            <Settings className="h-3.5 w-3.5" strokeWidth={2.1} />
+          </button>
+        </div>
+
+        <div className="relative mt-3 flex items-baseline gap-2">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white">{cop(total)}</h1>
+          <span className="text-[11px] font-medium text-[#22C55E]">+4.2%</span>
+        </div>
+
+        <div className="relative mt-4 rounded-xl border border-[#343440] bg-[#0d0d0e]/70 p-3">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#d97724]/12 text-[#e08a3e]">
+              <TrendingUp className="h-3.5 w-3.5" strokeWidth={2.3} />
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.16em] text-[#8a8a93]">Rendimiento Estimado</p>
+              <p className="mt-0.5 text-xs font-medium text-white">
+                Con <span className="font-bold text-[#e08a3e]">{pct(yieldEa, 2)} E.A.</span> rinden{' '}
+                <span className="font-bold text-[#e08a3e]">≈ {cop(estimatedMonthlyYield)}</span> / mes
+              </p>
+            </div>
+          </div>
         </div>
       </header>
 
       <section className="grid grid-cols-3 gap-2 text-center">
-        <Stat label="Ingresos" value={month?.income} tone="text-emerald-600" className="bg-emerald-50" />
-        <Stat label="Gastos" value={month?.expenses} tone="text-rose-600" className="bg-rose-50" />
-        <Stat label="Rendimiento" value={month?.yield} tone="text-sky-600" className="bg-sky-50" />
+        <Stat label="Ingresos" value={month?.income} tone="text-[#22C55E]" className="bg-[#161619]" />
+        <Stat label="Gastos" value={month?.expenses} tone="text-[#EF4444]" className="bg-[#161619]" />
+        <Stat label="Rendimiento" value={month?.yield} tone="text-[#e08a3e]" className="bg-[#161619]" />
       </section>
 
-      <section className="space-y-3 rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Accesos rápidos</h2>
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.25)]">
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Accesos rápidos</h2>
+          <span className="text-[10px] font-medium text-[#e08a3e]">Personalizar</span>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2.5">
           {LINKS.map((l) => {
             const Icon = l.icon
             return (
               <Link
             key={l.href}
             href={l.href}
-            className="rounded-2xl border p-3 text-sm font-medium text-slate-700 transition"
-            style={{
-              background: 'rgba(var(--brand-rgb), 0.07)',
-              borderColor: 'rgba(var(--brand-rgb), 0.2)',
-            }}
+            className="flex items-center gap-3 rounded-xl border border-[#282830] bg-[#0d0d0e] p-2.5 text-left text-xs font-medium text-white transition hover:border-[#d97724]/50"
           >
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/70 text-slate-700 shadow-sm" style={{ boxShadow: 'inset 0 0 0 1px rgba(var(--brand-rgb), 0.18)' }}>
-                    <Icon className="h-4 w-4" strokeWidth={2.1} />
-                  </span>
-                  {l.label}
-                </div>
-              </Link>
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#282830] bg-[#161619] text-[#e08a3e]">
+              <Icon className="h-4 w-4" strokeWidth={2.1} />
+            </span>
+            {l.label}
+          </Link>
             )
           })}
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Próximos cobros</h2>
-          <Link href="/cobros" className="text-xs font-medium text-indigo-600">Ver todos</Link>
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Próximos Cobros</h2>
+          <Link href="/cobros" className="text-[10px] font-medium text-[#e08a3e]">Ver todos</Link>
         </div>
         <div className="mt-3 space-y-2">
           {soon.length === 0 ? (
@@ -122,20 +142,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Deuda total</p>
-            <p className="mt-1 text-2xl font-bold text-slate-900">{cop(totalDebt)}</p>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-[#8a8a93]">Deuda total</p>
+            <p className="mt-1 text-2xl font-bold text-white">{cop(totalDebt)}</p>
           </div>
-          <Link href="/deudas" className="text-sm font-medium text-indigo-600">Ver detalle →</Link>
+          <Link href="/deudas" className="text-sm font-medium text-[#e08a3e]">Ver detalle →</Link>
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between px-1">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Mis cajas</h2>
-          <span className="rounded-full bg-slate-900 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Mis cajas</h2>
+          <span className="rounded-full bg-[#0d0d0e] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#e08a3e]">
             {pockets.length}
           </span>
         </div>
@@ -147,13 +167,13 @@ export default async function HomePage() {
         )}
 
         {pockets.map((p) => (
-          <div key={p.pocket_id} className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+          <div key={p.pocket_id} className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_12px_26px_rgba(0,0,0,0.18)]">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-base font-semibold text-slate-800">{p.emoji ?? '💰'} {p.name}</p>
-                <p className="mt-1 text-xs text-slate-400">{p.account_name}</p>
+                <p className="text-base font-semibold text-white">{p.emoji ?? '💰'} {p.name}</p>
+                <p className="mt-1 text-xs text-[#8a8a93]">{p.account_name}</p>
               </div>
-              <p className="text-lg font-bold text-slate-900">{cop(p.balance)}</p>
+              <p className="text-lg font-bold text-white">{cop(p.balance)}</p>
             </div>
 
             {p.goal && (
@@ -190,14 +210,10 @@ function Stat({
 }) {
   return (
     <div
-      className={`rounded-[22px] border p-3 shadow-[0_12px_24px_rgba(15,23,42,0.04)] ${className ?? ''}`}
-      style={{
-        borderColor: 'rgba(var(--brand-rgb), 0.12)',
-        background: 'linear-gradient(180deg, rgba(var(--brand-rgb), 0.08), rgba(255,255,255,0.18))',
-      }}
+      className={`rounded-[18px] border border-[#282830] bg-[#161619] p-3 shadow-[0_10px_20px_rgba(0,0,0,0.18)] ${className ?? ''}`}
     >
       <p className={`text-lg font-bold ${tone}`}>{cop(value)}</p>
-      <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8a8a93]">{label}</p>
     </div>
   )
 }

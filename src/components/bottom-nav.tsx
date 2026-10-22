@@ -16,7 +16,7 @@ export default function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200/80 bg-white/80 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl">
+    <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-[#282830] bg-[#0d0d0e]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl">
       <ul className="mx-auto flex max-w-md items-center gap-2 px-3 py-2">
         {items.map((item) => {
           const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
@@ -28,8 +28,8 @@ export default function BottomNav() {
                 href={item.href}
                 className={`flex flex-col items-center justify-center gap-1 rounded-2xl py-2 text-[11px] font-medium transition-all ${
                   active
-                    ? 'bg-slate-900 text-white shadow-[0_12px_24px_rgba(15,23,42,0.22)]'
-                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
+                    ? 'border border-[#d97724]/30 bg-[#1e1e23] text-[#e08a3e] shadow-[0_8px_20px_rgba(217,119,36,0.12)]'
+                    : 'text-[#8a8a93] hover:text-white'
                 }`}
               >
                 <Icon className="h-4 w-4" strokeWidth={2.1} />

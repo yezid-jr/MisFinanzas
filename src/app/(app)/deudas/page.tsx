@@ -82,29 +82,34 @@ export default function DebtsPage() {
 
   return (
     <main className="space-y-5">
-      <header className="rounded-[28px] bg-[linear-gradient(135deg,#111827_0%,#312e81_100%)] p-5 text-white shadow-[0_24px_44px_rgba(17,24,39,0.28)]">
-        <p className="text-xs uppercase tracking-[0.18em] text-violet-100/80">Deudas</p>
+      <header
+        className="rounded-[28px] p-5 text-white shadow-[0_28px_60px_rgba(14,23,35,0.5)]"
+        style={{
+          background: 'linear-gradient(135deg, rgba(14,18,24,0.96) 0%, rgba(59,76,105,0.82) 28%, rgba(var(--brand-rgb), 0.58) 100%)',
+        }}
+      >
+        <p className="text-[10px] uppercase tracking-[0.2em] text-sky-100/80">Deudas</p>
         <h1 className="mt-2 text-3xl font-bold">{cop(total)}</h1>
-        <p className="mt-1 text-sm text-violet-100/80">Saldo total comprometido</p>
+        <p className="mt-1 text-sm text-sky-100/80">Saldo total comprometido</p>
       </header>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Resumen</h2>
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">Resumen</h2>
         {loading ? (
-          <p className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm text-slate-600">Cargando deudas…</p>
+          <p className="rounded-[24px] border border-white/10 bg-slate-900/30 p-4 text-sm text-slate-300">Cargando deudas…</p>
         ) : debts.length === 0 ? (
-          <p className="rounded-2xl border border-slate-200 bg-white/90 p-4 text-sm text-slate-600">
+          <p className="rounded-[24px] border border-white/10 bg-slate-900/30 p-4 text-sm text-slate-300">
             Aún no registras deudas. Agrega la primera para empezar a controlarlas.
           </p>
         ) : (
           debts.map((debt) => (
-            <article key={debt.id} className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+            <article key={debt.id} className="rounded-[28px] border border-white/10 bg-slate-900/35 p-4 shadow-[0_20px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-base font-semibold text-slate-900">{debt.name}</p>
-                  <p className="mt-1 text-xs text-slate-500">{labelByKind[debt.kind] ?? debt.kind}</p>
+                  <p className="text-base font-semibold text-slate-100">{debt.name}</p>
+                  <p className="mt-1 text-xs text-slate-400">{labelByKind[debt.kind] ?? debt.kind}</p>
                 </div>
-                <span className="rounded-full bg-violet-50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-violet-700">
+                <span className="rounded-full bg-sky-500/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-sky-200">
                   {debt.due_day ? `Vence ${debt.due_day}` : 'Sin fecha'}
                 </span>
               </div>
@@ -112,11 +117,11 @@ export default function DebtsPage() {
               <div className="mt-4 flex items-end justify-between gap-3">
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Saldo</p>
-                  <p className="mt-1 text-xl font-bold text-slate-900">{cop(Number(debt.credit_limit ?? 0))}</p>
+                  <p className="mt-1 text-xl font-bold text-slate-100">{cop(Number(debt.credit_limit ?? 0))}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Tasa EA</p>
-                  <p className="mt-1 text-sm font-semibold text-slate-700">
+                  <p className="mt-1 text-sm font-semibold text-slate-200">
                     {debt.rate_ea != null ? `${debt.rate_ea}%` : '—'}
                   </p>
                 </div>
@@ -127,8 +132,8 @@ export default function DebtsPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Agregar deuda</h2>
-        <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">Agregar deuda</h2>
+        <div className="rounded-[28px] border border-white/10 bg-slate-900/35 p-4 shadow-[0_20px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl">
           <form onSubmit={onSubmit} className="space-y-4">
             <Field label="Nombre de la deuda">
               <input className={inputClass} value={name} onChange={(e) => setName(e.target.value)} placeholder="ICETEX" required />

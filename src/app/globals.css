@@ -1,29 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --bg-1: #f8fbff;
-  --bg-2: #edf6ff;
-  --panel: rgba(255, 255, 255, 0.52);
-  --panel-strong: rgba(255, 255, 255, 0.72);
-  --line: rgba(148, 163, 184, 0.18);
-  --surface: #ffffff;
-  --surface-strong: #f8fafc;
-  --text: #0f172a;
-  --text-soft: #475569;
-  --brand: #c4b5fd;
-  --brand-rgb: 196, 181, 253;
-  --brand-soft: #ddd6fe;
-  --brand-strong: #8b5cf6;
-  --hero-start: #ddd6fe;
-  --hero-end: #1d4ed8;
-  --glass-border: rgba(255, 255, 255, 0.5);
-  --glass-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  --bg-1: #050506;
+  --bg-2: #0d0d0e;
+  --panel: rgba(22, 22, 25, 0.96);
+  --panel-strong: rgba(18, 18, 22, 0.96);
+  --line: rgba(52, 52, 64, 0.9);
+  --surface: #161619;
+  --surface-strong: #1e1e23;
+  --text: #ffffff;
+  --text-soft: #8a8a93;
+  --brand: #d97724;
+  --brand-rgb: 217, 119, 36;
+  --brand-soft: #f7c07a;
+  --brand-strong: #e08a3e;
+  --hero-start: #d97724;
+  --hero-end: #0f172a;
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
   --shadow-soft: 0 24px 44px rgba(15, 23, 42, 0.08);
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html[data-theme='dark'] {
@@ -32,8 +32,8 @@ html[data-theme='dark'] {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(var(--brand-rgb), 0.18), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.16), transparent 22%),
+    radial-gradient(circle at 20% 10%, rgba(217, 119, 36, 0.14), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.04), transparent 25%),
     linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
   color: var(--text);
 }
@@ -53,7 +53,7 @@ select {
 }
 
 .glass-panel {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.12));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(18px);
@@ -61,16 +61,16 @@ select {
 }
 
 .glass-shell {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px rgba(12, 17, 24, 0.28);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
 .glass-button {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }

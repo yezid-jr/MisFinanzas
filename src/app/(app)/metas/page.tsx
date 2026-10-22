@@ -49,7 +49,7 @@ export default async function GoalsPage() {
             else projection = `Con tu ritmo actual, te faltan ${Math.ceil(remaining / perMonth)} meses aprox.`
 
             return (
-              <div key={p.pocket_id} className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+              <div key={p.pocket_id} className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-base font-semibold text-slate-800">{p.emoji ?? '💰'} {p.name}</p>

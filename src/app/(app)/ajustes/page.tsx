@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { InstallPanel, NotificationsPanel } from '@/components/settings-panels'
+import { ThemePanel } from '@/components/theme-panel'
 
 export default async function SettingsPage() {
   const supabase = await createClient()
@@ -10,6 +11,7 @@ export default async function SettingsPage() {
     <main className="space-y-4">
       <h1 className="text-2xl font-bold">Ajustes</h1>
 
+      <ThemePanel />
       <InstallPanel />
       <NotificationsPanel />
 

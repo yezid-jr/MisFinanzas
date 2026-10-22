@@ -63,21 +63,21 @@ export default async function ReportsPage({
         <Card label="Gastos" value={cop(expenses)} tone="text-rose-600" />
       </section>
 
-      <section className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Gastos por categoría</h2>
         <div className="mt-4">
           {categories.length > 0 ? <HBars items={categories} color="bg-rose-500" /> : <p className="text-sm text-slate-500">No hay gastos registrados en este mes.</p>}
         </div>
       </section>
 
-      <section className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Ingresos vs gastos</h2>
         <div className="mt-4">
           {chartMonths.length > 0 ? <ColumnChart data={chartMonths} /> : <p className="text-sm text-slate-500">Aún no hay meses para comparar.</p>}
         </div>
       </section>
 
-      <section className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Evolución de tu plata (90 días)</h2>
         <div className="mt-4">
           {points.length > 0 ? <LineChart points={points} /> : <p className="text-sm text-slate-500">Sin movimientos recientes.</p>}

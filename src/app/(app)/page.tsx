@@ -65,7 +65,7 @@ export default async function HomePage() {
         <Stat label="Rendimiento" value={month?.yield} tone="text-sky-600" className="bg-sky-50" />
       </section>
 
-      <section className="space-y-3 rounded-[24px] border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+      <section className="space-y-3 rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Accesos rápidos</h2>
         </div>
@@ -86,7 +86,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="rounded-[24px] border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+      <section className="rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Próximos cobros</h2>
           <Link href="/cobros" className="text-xs font-medium text-indigo-600">Ver todos</Link>
@@ -100,7 +100,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="rounded-[24px] border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+      <section className="rounded-3xl border border-slate-200/80 bg-white/80 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Deuda total</p>
@@ -125,7 +125,7 @@ export default async function HomePage() {
         )}
 
         {pockets.map((p) => (
-          <div key={p.pocket_id} className="rounded-[24px] border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+          <div key={p.pocket_id} className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="text-base font-semibold text-slate-800">{p.emoji ?? '💰'} {p.name}</p>

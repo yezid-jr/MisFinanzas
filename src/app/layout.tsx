@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import SwRegister from '@/components/sw-register'
+import ThemeInit from '@/components/theme-init'
 
 export const metadata: Metadata = {
   title: 'Mis Finanzas',
@@ -22,8 +23,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    <html lang="es" suppressHydrationWarning>
+      <body className="min-h-screen antialiased" style={{ background: 'var(--bg-1)', color: 'var(--text)' }}>
+        <ThemeInit />
         {children}
         <SwRegister />
       </body>

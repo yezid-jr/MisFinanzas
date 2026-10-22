@@ -98,7 +98,7 @@ export default function DebtsPage() {
           </p>
         ) : (
           debts.map((debt) => (
-            <article key={debt.id} className="rounded-[24px] border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+            <article key={debt.id} className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-base font-semibold text-slate-900">{debt.name}</p>
@@ -128,7 +128,7 @@ export default function DebtsPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Agregar deuda</h2>
-        <div className="rounded-[24px] border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
+        <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 shadow-[0_16px_28px_rgba(15,23,42,0.05)]">
           <form onSubmit={onSubmit} className="space-y-4">
             <Field label="Nombre de la deuda">
               <input className={inputClass} value={name} onChange={(e) => setName(e.target.value)} placeholder="ICETEX" required />

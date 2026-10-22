@@ -32,9 +32,9 @@ html[data-theme='dark'] {
 
 body {
   background:
-    radial-gradient(circle at 20% 10%, rgba(217, 119, 36, 0.14), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.04), transparent 25%),
-    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    radial-gradient(circle at 15% 8%, rgba(217, 119, 36, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 88%, rgba(255, 255, 255, 0.02), transparent 25%),
+    linear-gradient(180deg, #050506 0%, #0d0d0e 100%);
   color: var(--text);
 }
 
@@ -61,9 +61,9 @@ select {
 }
 
 .glass-shell {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 36px rgba(12, 17, 24, 0.28);
+  background: linear-gradient(180deg, rgba(24, 24, 28, 0.95), rgba(13, 13, 14, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }

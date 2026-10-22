@@ -42,6 +42,7 @@ export type MonthlySummary = {
 }
 
 export type IncomeSource = 'work' | 'tattoo' | 'other'
+
 export type DebtKind = 'student_loan' | 'credit_card' | 'bnpl' | 'person' | 'other'
 
 export type Debt = {
@@ -57,10 +58,7 @@ export type Debt = {
   notes: string | null
 }
 
-export type DebtBalance = {
-  debt_id: string
-  balance: number
-}
+export type DebtBalance = { debt_id: string; balance: number }
 
 export type Installment = {
   id: string
@@ -80,3 +78,5 @@ export type RecurringCharge = {
   is_active: boolean
   last_posted_on: string | null
 }
+
+export type DebtEntryLite = { debt_id: string; kind: string; amount: number }

@@ -1,3 +1,5 @@
+// Fechas como texto YYYY-MM-DD, calculadas en UTC para evitar errores de zona horaria.
+
 export const toISO = (d: Date) => d.toISOString().slice(0, 10)
 export const parseISO = (s: string) => new Date(s + 'T00:00:00Z')
 
@@ -7,6 +9,7 @@ export function addDays(iso: string, n: number) {
   return toISO(d)
 }
 
+/** Días desde a hasta b (b - a) */
 export const daysBetween = (a: string, b: string) =>
   Math.round((parseISO(b).getTime() - parseISO(a).getTime()) / 86_400_000)
 
@@ -17,51 +20,44 @@ const makeISO = (y: number, m0: number, day: number) => {
   return `${y}-${String(m0 + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 }
 
+/** Primera fecha con ese día del mes ESTRICTAMENTE posterior a `after` */
 export function nextOccurrence(day: number, after: string) {
   const [y, m] = after.split('-').map(Number)
-  let yy = y
-  let mm = m - 1
-  for (let i = 0; i < 24; i += 1) {
-    const iso = makeISO(yy, mm, day)
+  for (let i = 0; i < 3; i++) {
+    const idx = m - 1 + i
+    const iso = makeISO(y + Math.floor(idx / 12), idx % 12, day)
     if (iso > after) return iso
-    mm += 1
-    if (mm > 11) {
-      mm = 0
-      yy += 1
-    }
   }
   return after
 }
 
+/** Última fecha con ese día del mes que sea igual o anterior a `onOrBefore` */
 export function prevOccurrence(day: number, onOrBefore: string) {
   const [y, m] = onOrBefore.split('-').map(Number)
-  let yy = y
-  let mm = m - 1
-  for (let i = 0; i < 24; i += 1) {
-    const iso = makeISO(yy, mm, day)
+  for (let i = 0; i < 3; i++) {
+    const idx = m - 1 - i
+    const iso = makeISO(y + Math.floor(idx / 12), ((idx % 12) + 12) % 12, day)
     if (iso <= onOrBefore) return iso
-    mm -= 1
-    if (mm < 0) {
-      mm = 11
-      yy -= 1
-    }
   }
   return onOrBefore
 }
 
-export const shortDate = (iso: string) =>
-  parseISO(iso).toLocaleDateString('es-CO', {
-    day: 'numeric',
-    month: 'short',
-    timeZone: 'UTC',
-  })
+/** Suma meses conservando el día (ej. 19 nov -> 19 dic; 31 ene -> 28 feb) */
+export function addMonthsKeepDay(iso: string, n: number) {
+  const [y, m, d] = iso.split('-').map(Number)
+  const idx = m - 1 + n
+  return makeISO(y + Math.floor(idx / 12), ((idx % 12) + 12) % 12, d)
+}
 
-export const relativeLabel = (days: number) => {
-  if (days < 0) return `Hace ${Math.abs(days)} días`
+export function relativeLabel(days: number) {
+  if (days < 0) return `Atrasado ${-days} d`
   if (days === 0) return 'Hoy'
   if (days === 1) return 'Mañana'
   return `En ${days} días`
 }
+
+export const shortDate = (iso: string) =>
+  parseISO(iso).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', timeZone: 'UTC' })
 
 export const monthYear = (iso: string) =>
   parseISO(iso).toLocaleDateString('es-CO', { month: 'long', year: 'numeric', timeZone: 'UTC' })

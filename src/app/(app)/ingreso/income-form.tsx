@@ -77,8 +77,8 @@ export default function IncomeForm({ pockets }: { pockets: Pocket[] }) {
               onClick={() => setSource(s.value)}
               className={`flex items-center justify-center gap-1.5 rounded-2xl border px-2 py-2.5 text-sm font-medium transition-all ${
                 source === s.value
-                  ? 'border-slate-900 bg-slate-900 text-white shadow-[0_12px_24px_rgba(15,23,42,0.18)]'
-                  : 'border-slate-200 bg-white/80 text-slate-700 hover:border-slate-300'
+                  ? 'border-[#d97724] bg-[#d97724]/15 text-[#f7c07a] shadow-[0_12px_24px_rgba(217,119,36,0.18)]'
+                  : 'border-[#282830] bg-[#0d0d0e] text-[#8a8a93] hover:border-[#3a3a41]'
               }`}
             >
               <Icon className="h-3.5 w-3.5" strokeWidth={2.2} />
@@ -96,20 +96,20 @@ export default function IncomeForm({ pockets }: { pockets: Pocket[] }) {
       </Field>
 
       {amount > 0 && (
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <p className="mb-2 text-sm font-semibold text-slate-600">Así se reparte</p>
+        <div className="rounded-[20px] border border-[#282830] bg-[#0d0d0e] p-4 shadow-[0_8px_18px_rgba(0,0,0,0.14)]">
+          <p className="mb-2 text-sm font-semibold text-[#f7c07a]">Así se reparte</p>
           <ul className="space-y-1.5 text-sm">
             {preview.map(({ pocket, pct, share }) => (
-              <li key={pocket.id} className="flex items-center justify-between gap-3">
+              <li key={pocket.id} className="flex items-center justify-between gap-3 text-white">
                 <span className="flex items-center gap-2 truncate">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#161619] text-[#8a8a93]">
                     <BriefcaseBusiness className="h-3.5 w-3.5" strokeWidth={2.2} />
                   </span>
                   <span className="truncate">
-                    {pocket.name} <span className="text-slate-400">({pct}%)</span>
+                    {pocket.name} <span className="text-[#8a8a93]">({pct}%)</span>
                   </span>
                 </span>
-                <span className="font-medium">{cop(share)}</span>
+                <span className="font-medium text-[#f7c07a]">{cop(share)}</span>
               </li>
             ))}
           </ul>

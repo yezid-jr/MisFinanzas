@@ -87,7 +87,7 @@ export default function ExpenseForm({
       </Field>
 
       {insufficient && (
-        <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+        <p className="rounded-lg border border-[#d97724]/20 bg-[#d97724]/10 p-3 text-sm text-[#f7c07a]">
           {pocket?.name} solo tiene {cop(pocket?.balance)}.{' '}
           <Link href="/transferir" className="font-semibold underline">
             Muévele plata desde otra caja

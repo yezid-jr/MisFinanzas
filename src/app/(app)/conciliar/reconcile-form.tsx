@@ -41,15 +41,15 @@ export default function ReconcileForm({ pockets }: { pockets: PocketBalance[] })
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+    <form onSubmit={onSubmit} className="space-y-4">
       {pockets.map((p) => {
         const diff = diffOf(p)
         return (
-          <div key={p.pocket_id} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+          <div key={p.pocket_id} className="rounded-2xl border border-[#282830] bg-[#0d0d0e] p-3">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="font-medium text-slate-800">{p.emoji ?? '💰'} {p.name}</p>
-                <p className="text-xs text-slate-500">App: {cop2(p.balance)}</p>
+                <p className="font-medium text-white">{p.emoji ?? '💰'} {p.name}</p>
+                <p className="text-xs text-[#8a8a93]">App: {cop2(p.balance)}</p>
               </div>
             </div>
             <div className="mt-3">
@@ -62,7 +62,7 @@ export default function ReconcileForm({ pockets }: { pockets: PocketBalance[] })
               </Field>
             </div>
             {diff !== 0 && (
-              <p className={`mt-2 text-xs ${diff > 0 ? 'text-sky-600' : 'text-orange-600'}`}>
+              <p className={`mt-2 text-xs ${diff > 0 ? 'text-[#7dd3fc]' : 'text-[#f7c07a]'}`}>
                 {diff > 0 ? '📈 Rendimiento' : '⚖️ Ajuste'}: {cop2(diff)}
               </p>
             )}

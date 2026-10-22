@@ -85,8 +85,8 @@ export default async function HistoryPage({
 
   return (
     <main className="space-y-5">
-      <header className="rounded-[28px] bg-[linear-gradient(135deg,#0f172a_0%,#4f46e5_100%)] p-5 text-white shadow-[0_24px_44px_rgba(79,70,229,0.28)]">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-indigo-100/80">Historial</p>
+      <header className="rounded-[24px] border border-[#282830] bg-[linear-gradient(135deg,rgba(26,26,30,0.96),rgba(18,18,22,0.96))] p-5 text-white shadow-[0_0_30px_rgba(217,119,36,0.12)]">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-[#8a8a93]">Historial</p>
         <h1 className="mt-2 text-3xl font-bold">Movimientos</h1>
       </header>
 
@@ -96,7 +96,7 @@ export default async function HistoryPage({
             key={f.key}
             href={`/historial?tipo=${f.key}`}
             className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-              filter.key === f.key ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600'
+              filter.key === f.key ? 'bg-[#d97724] text-white' : 'bg-[#0d0d0e] text-[#8a8a93] border border-[#282830]'
             }`}
           >
             {f.label}
@@ -105,7 +105,7 @@ export default async function HistoryPage({
       </nav>
 
       {groups.size === 0 ? (
-        <p className="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">No hay movimientos todavía.</p>
+        <p className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 text-sm text-[#8a8a93]">No hay movimientos todavía.</p>
       ) : (
         <div className="space-y-3">
           {[...groups.entries()].map(([groupId, g]) => {
@@ -118,14 +118,14 @@ export default async function HistoryPage({
                   : ''
 
             return (
-              <div key={groupId} className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-sm">
+              <div key={groupId} className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <div className="flex items-center gap-2 text-base font-semibold text-slate-800">
+                    <div className="flex items-center gap-2 text-base font-semibold text-white">
                       <span>{d.icon}</span>
                       <span>{d.title}</span>
                     </div>
-                    <p className="mt-1 text-xs text-slate-500">{shortDate(g[0].occurred_on)}</p>
+                    <p className="mt-1 text-xs text-[#8a8a93]">{shortDate(g[0].occurred_on)}</p>
                   </div>
                   <div className="text-right">
                     <p className={`text-lg font-bold ${d.tone}`}>{cop2(d.amount)}</p>
@@ -133,15 +133,15 @@ export default async function HistoryPage({
                   </div>
                 </div>
 
-                {detail && <p className="mt-2 text-xs text-slate-500">{detail}</p>}
-                {g[0].note && <p className="mt-1 text-xs text-slate-500">“{g[0].note}”</p>}
+                {detail && <p className="mt-2 text-xs text-[#8a8a93]">{detail}</p>}
+                {g[0].note && <p className="mt-1 text-xs text-[#8a8a93]">“{g[0].note}”</p>}
               </div>
             )
           })}
         </div>
       )}
 
-      {rows.length >= 200 && <p className="text-xs text-slate-500">Mostrando los últimos 200 registros.</p>}
+      {rows.length >= 200 && <p className="text-xs text-[#8a8a93]">Mostrando los últimos 200 registros.</p>}
     </main>
   )
 }

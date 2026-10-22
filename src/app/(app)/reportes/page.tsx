@@ -53,34 +53,34 @@ export default async function ReportsPage({
 
   return (
     <main className="space-y-5">
-      <header className="rounded-[28px] bg-[linear-gradient(135deg,#0f172a_0%,#1d4ed8_100%)] p-5 text-white shadow-[0_24px_44px_rgba(37,99,235,0.28)]">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-blue-100/80">Reportes</p>
+      <header className="rounded-[24px] border border-[#282830] bg-[linear-gradient(135deg,rgba(26,26,30,0.96),rgba(18,18,22,0.96))] p-5 text-white shadow-[0_0_30px_rgba(217,119,36,0.12)]">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-[#8a8a93]">Reportes</p>
         <h1 className="mt-2 text-3xl font-bold">{monthYear(monthStart)}</h1>
       </header>
 
       <section className="grid grid-cols-2 gap-3">
-        <Card label="Ahorro neto" value={cop(saved)} tone="text-emerald-600" />
-        <Card label="Gastos" value={cop(expenses)} tone="text-rose-600" />
+        <Card label="Ahorro neto" value={cop(saved)} tone="text-[#22C55E]" />
+        <Card label="Gastos" value={cop(expenses)} tone="text-[#EF4444]" />
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Gastos por categoría</h2>
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Gastos por categoría</h2>
         <div className="mt-4">
-          {categories.length > 0 ? <HBars items={categories} color="bg-rose-500" /> : <p className="text-sm text-slate-500">No hay gastos registrados en este mes.</p>}
+          {categories.length > 0 ? <HBars items={categories} color="bg-rose-500" /> : <p className="text-sm text-[#8a8a93]">No hay gastos registrados en este mes.</p>}
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Ingresos vs gastos</h2>
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Ingresos vs gastos</h2>
         <div className="mt-4">
-          {chartMonths.length > 0 ? <ColumnChart data={chartMonths} /> : <p className="text-sm text-slate-500">Aún no hay meses para comparar.</p>}
+          {chartMonths.length > 0 ? <ColumnChart data={chartMonths} /> : <p className="text-sm text-[#8a8a93]">Aún no hay meses para comparar.</p>}
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Evolución de tu plata (90 días)</h2>
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Evolución de tu plata (90 días)</h2>
         <div className="mt-4">
-          {points.length > 0 ? <LineChart points={points} /> : <p className="text-sm text-slate-500">Sin movimientos recientes.</p>}
+          {points.length > 0 ? <LineChart points={points} /> : <p className="text-sm text-[#8a8a93]">Sin movimientos recientes.</p>}
         </div>
       </section>
     </main>
@@ -89,9 +89,9 @@ export default async function ReportsPage({
 
 function Card({ label, value, tone }: { label: string; value: string; tone: string }) {
   return (
-    <div className="rounded-[22px] border border-slate-200 bg-white/90 p-3 shadow-[0_12px_24px_rgba(15,23,42,0.04)]">
+    <div className="rounded-[18px] border border-[#282830] bg-[#161619] p-3 shadow-[0_10px_20px_rgba(0,0,0,0.18)]">
       <p className={`text-lg font-bold ${tone}`}>{value}</p>
-      <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8a8a93]">{label}</p>
     </div>
   )
 }

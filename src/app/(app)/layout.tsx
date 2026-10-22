@@ -9,8 +9,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="mx-auto max-w-md px-4 pb-28 pt-5">
-      <div className="rounded-[28px] border border-white/50 bg-white/30 p-2 backdrop-blur-sm">
-        <div className="rounded-[22px] bg-white/30 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.04)]">
+      <div className="glass-shell rounded-[30px] p-2">
+        <div className="rounded-[24px] bg-white/10 p-2 shadow-[0_18px_40px_rgba(15,23,42,0.04)]">
           {children}
         </div>
       </div>

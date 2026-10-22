@@ -44,11 +44,19 @@ export default async function HomePage() {
             <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-blue-100/80">Total en tus cajas</p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">{cop(total)}</h1>
           </div>
-          <form action="/auth/signout" method="post">
-            <button className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15">
-              Salir
-            </button>
-          </form>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/ajustes"
+              className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15"
+            >
+              Tema
+            </Link>
+            <form action="/auth/signout" method="post">
+              <button className="rounded-xl border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition hover:bg-white/15">
+                Salir
+              </button>
+            </form>
+          </div>
         </div>
 
         <div className="mt-5 rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur-sm">

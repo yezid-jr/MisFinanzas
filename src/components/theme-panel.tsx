@@ -94,18 +94,31 @@ export function ThemePanel() {
   }, [theme, accent])
 
   return (
-    <section className="space-y-3 rounded-2xl bg-white p-4 shadow-sm">
-      <h2 className="font-semibold">🎨 Tema y colores</h2>
+    <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Personalización</p>
+          <h2 className="text-lg font-bold text-slate-900">Tema y colores</h2>
+        </div>
+        <div
+          className="h-6 w-6 rounded-full border border-slate-200 shadow-inner"
+          style={{ background: accent }}
+          aria-label="Color activo"
+        />
+      </div>
 
       <div className="grid grid-cols-3 gap-2">
         {PRESETS.map((preset) => (
           <button
             key={preset.id}
             type="button"
-            onClick={() => setTheme(preset.id as ThemeMode)}
-            className={`rounded-xl border px-3 py-2 text-sm font-medium transition ${
+            onClick={() => {
+              setTheme(preset.id as ThemeMode)
+              if (preset.id !== 'custom') setAccent(preset.accent)
+            }}
+            className={`rounded-xl border px-3 py-3 text-sm font-semibold transition ${
               theme === preset.id
-                ? 'border-slate-900 bg-slate-900 text-white'
+                ? 'border-slate-900 bg-slate-900 text-white shadow-md'
                 : 'border-slate-300 bg-white text-slate-700'
             }`}
           >
@@ -126,9 +139,20 @@ export function ThemePanel() {
             setAccent(e.target.value)
             setTheme('custom')
           }}
-          className="h-11 w-full cursor-pointer rounded-lg border border-slate-200 bg-white p-1"
+          className="h-12 w-full cursor-pointer rounded-lg border border-slate-200 bg-white p-1"
         />
       </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          setTheme('light')
+          setAccent('#2563eb')
+        }}
+        className="w-full rounded-xl border border-slate-300 bg-slate-100 px-3 py-2.5 text-sm font-medium text-slate-700"
+      >
+        Restablecer tema por defecto
+      </button>
     </section>
   )
 }

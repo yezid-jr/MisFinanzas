@@ -2,8 +2,11 @@
 
 import Link from 'next/link'
 import { ArrowRightLeft, Eye, EyeOff, Settings, Target, TrendingUp, Wallet } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { cop, pct } from '@/lib/format'
+import type { PocketBalance } from '@/lib/types'
+import type { UpcomingItem } from '@/lib/upcoming'
+import UpcomingList from '@/components/upcoming-list'
 
 const LINKS = [
   { href: '/transferir', label: 'Mover plata', icon: ArrowRightLeft },
@@ -21,6 +24,9 @@ export function HomeDashboard({
   estimatedMonthlyYield,
   yieldEa,
   userName,
+  totalDebt,
+  pockets,
+  upcomingItems,
 }: {
   total: number
   income?: number
@@ -29,25 +35,15 @@ export function HomeDashboard({
   estimatedMonthlyYield: number
   yieldEa: number
   userName: string
+  totalDebt: number
+  pockets: PocketBalance[]
+  upcomingItems: UpcomingItem[]
 }) {
   const [isBalanceHidden, setIsBalanceHidden] = useState(false)
 
-  const chartPoints = useMemo(() => {
-    const values = [18, 34, 29, 52, 44, 71, 63, 83, 78, 96, 110, 127]
-    const max = Math.max(...values)
-    const min = Math.min(...values)
-
-    return values
-      .map((value, index) => {
-        const x = (index / (values.length - 1)) * 100
-        const y = 100 - ((value - min) / (max - min || 1)) * 80 - 10
-        return `${x},${y}`
-      })
-      .join(' ')
-  }, [])
-
   const displayTotal = isBalanceHidden ? '••••••••' : cop(total)
   const displayUser = userName || 'Usuario'
+  const soon = upcomingItems.filter((item) => item.days <= 30).slice(0, 3)
 
   return (
     <main className="space-y-4">
@@ -146,33 +142,69 @@ export function HomeDashboard({
       </section>
 
       <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Próximos Cobros</h2>
+          <Link href="/cobros" className="text-[10px] font-medium text-[#e08a3e]">Ver todos</Link>
+        </div>
+        <div className="mt-3 space-y-2">
+          {soon.length === 0 ? (
+            <p className="text-sm text-slate-500">Sin cobros próximos.</p>
+          ) : (
+            <UpcomingList items={soon} compact />
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Rendimiento Anual</h2>
-            <p className="mt-1 text-base font-bold text-white">{cop(estimatedMonthlyYield)} <span className="text-[10px] font-normal text-[#8a8a93]">/ promedio mes</span></p>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-[#8a8a93]">Deuda total</p>
+            <p className="mt-1 text-2xl font-bold text-white">{cop(totalDebt)}</p>
           </div>
-          <div className="rounded-lg border border-[#282830] bg-[#0d0d0e] px-2 py-1 text-[10px] font-medium text-[#e08a3e]">1A</div>
+          <Link href="/deudas" className="text-sm font-medium text-[#e08a3e]">Ver detalle →</Link>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Mis cajas</h2>
+          <span className="rounded-full bg-[#0d0d0e] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#e08a3e]">
+            {pockets.length}
+          </span>
         </div>
 
-        <div className="mt-4 h-32 w-full overflow-hidden rounded-2xl border border-[#282830] bg-[#0d0d0e] p-2">
-          <svg viewBox="0 0 100 40" className="h-full w-full" preserveAspectRatio="none" aria-label="Gráfico de rendimiento">
-            <defs>
-              <linearGradient id="chartGlow" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="rgba(224,138,62,0.45)" />
-                <stop offset="100%" stopColor="rgba(224,138,62,0)" />
-              </linearGradient>
-            </defs>
-            <path d={`M 0 34 L ${chartPoints} L 100 34 Z`} fill="url(#chartGlow)" opacity="0.75" />
-            <polyline
-              fill="none"
-              stroke="#E08A3E"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              points={chartPoints}
-            />
-          </svg>
-        </div>
+        {pockets.length === 0 && (
+          <p className="rounded-2xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+            Aún no hay cajas.
+          </p>
+        )}
+
+        {pockets.map((pocket) => (
+          <div key={pocket.pocket_id} className="rounded-[24px] border border-[#282830] bg-[#161619] p-4 shadow-[0_12px_26px_rgba(0,0,0,0.18)]">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-base font-semibold text-white">{pocket.emoji ?? '💰'} {pocket.name}</p>
+                <p className="mt-1 text-xs text-[#8a8a93]">{pocket.account_name}</p>
+              </div>
+              <p className="text-lg font-bold text-white">{cop(pocket.balance)}</p>
+            </div>
+
+            {pocket.goal && (
+              <div className="mt-4">
+                <div className="mb-2 flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Meta</span>
+                  <span>{pocket.goal_pct ?? 0}% de {cop(pocket.goal)}</span>
+                </div>
+                <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+                  <div
+                    className="h-full rounded-full bg-[linear-gradient(90deg,#22c55e_0%,#10b981_100%)]"
+                    style={{ width: `${Math.min(100, Math.max(0, Number(pocket.goal_pct ?? 0)))}%` }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </section>
     </main>
   )

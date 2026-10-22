@@ -43,6 +43,9 @@ export default async function HomePage() {
       estimatedMonthlyYield={estimatedMonthlyYield}
       yieldEa={yieldEa}
       userName={fullName}
+      totalDebt={totalDebt}
+      pockets={pockets}
+      upcomingItems={upcoming.items}
     />
   )
 }

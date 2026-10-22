@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeft, Check, Settings2 } from 'lucide-react'
+import { Check, SlidersHorizontal } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 type ThemeMode = 'light' | 'dark'
@@ -12,11 +12,11 @@ type Swatch = {
 }
 
 const SWATCHES: Swatch[] = [
-  { id: 'lavanda', name: 'Lavanda', value: '#c4b5fd' },
-  { id: 'mint', name: 'Menta', value: '#a7f3d0' },
-  { id: 'sky', name: 'Cielo', value: '#bae6fd' },
-  { id: 'peach', name: 'Durazno', value: '#fed7aa' },
-  { id: 'rose', name: 'Rosa', value: '#fecdd3' },
+  { id: 'copper', name: 'Cobre', value: '#d97724' },
+  { id: 'purple', name: 'Morado', value: '#a855f7' },
+  { id: 'green', name: 'Verde', value: '#34d399' },
+  { id: 'sky', name: 'Azul', value: '#38bdf8' },
+  { id: 'rose', name: 'Rosa', value: '#fb7185' },
 ]
 
 function hexToRgb(hex: string) {
@@ -43,22 +43,22 @@ function applyTheme(theme: ThemeMode, accent: string) {
 
   if (theme === 'dark') {
     root.dataset.theme = 'dark'
-    root.style.setProperty('--bg-1', '#07111f')
-    root.style.setProperty('--bg-2', '#111827')
-    root.style.setProperty('--panel', 'rgba(15, 23, 42, 0.56)')
-    root.style.setProperty('--panel-strong', 'rgba(17, 24, 39, 0.7)')
-    root.style.setProperty('--line', 'rgba(148, 163, 184, 0.18)')
-    root.style.setProperty('--text', '#e5eefb')
-    root.style.setProperty('--text-soft', '#cbd5e1')
-    root.style.setProperty('--surface', '#0f172a')
-    root.style.setProperty('--surface-strong', '#111827')
+    root.style.setProperty('--bg-1', '#050506')
+    root.style.setProperty('--bg-2', '#0d0d0e')
+    root.style.setProperty('--panel', 'rgba(22, 22, 25, 0.96)')
+    root.style.setProperty('--panel-strong', 'rgba(18, 18, 22, 0.96)')
+    root.style.setProperty('--line', 'rgba(255, 255, 255, 0.07)')
+    root.style.setProperty('--text', '#ffffff')
+    root.style.setProperty('--text-soft', '#8a8a93')
+    root.style.setProperty('--surface', '#161619')
+    root.style.setProperty('--surface-strong', '#1e1e23')
   } else {
     root.dataset.theme = 'light'
     root.style.setProperty('--bg-1', '#f8fbff')
     root.style.setProperty('--bg-2', '#edf6ff')
-    root.style.setProperty('--panel', 'rgba(255, 255, 255, 0.52)')
-    root.style.setProperty('--panel-strong', 'rgba(255, 255, 255, 0.72)')
-    root.style.setProperty('--line', 'rgba(148,163,184,0.18)')
+    root.style.setProperty('--panel', 'rgba(255,255,255,0.72)')
+    root.style.setProperty('--panel-strong', 'rgba(255,255,255,0.82)')
+    root.style.setProperty('--line', 'rgba(148,163,184,0.2)')
     root.style.setProperty('--text', '#0f172a')
     root.style.setProperty('--text-soft', '#475569')
     root.style.setProperty('--surface', '#ffffff')
@@ -69,17 +69,17 @@ function applyTheme(theme: ThemeMode, accent: string) {
   root.style.setProperty('--brand-rgb', `${r}, ${g}, ${b}`)
   root.style.setProperty('--brand-soft', adjustHex(safeAccent, 75))
   root.style.setProperty('--brand-strong', adjustHex(safeAccent, -35))
-  root.style.setProperty('--hero-start', adjustHex(safeAccent, 14))
+  root.style.setProperty('--hero-start', adjustHex(safeAccent, 22))
   root.style.setProperty('--hero-end', theme === 'dark' ? '#0f172a' : '#1d4ed8')
 }
 
 export function ThemePanel() {
-  const [theme, setTheme] = useState<ThemeMode>('light')
+  const [theme, setTheme] = useState<ThemeMode>('dark')
   const [accent, setAccent] = useState(SWATCHES[0].value)
   const [isDirty, setIsDirty] = useState(false)
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem('mis-finanzas-theme') as ThemeMode | null) ?? 'light'
+    const savedTheme = (localStorage.getItem('mis-finanzas-theme') as ThemeMode | null) ?? 'dark'
     const savedAccent = localStorage.getItem('mis-finanzas-accent') ?? SWATCHES[0].value
     setTheme(savedTheme)
     setAccent(savedAccent)
@@ -98,76 +98,78 @@ export function ThemePanel() {
   }
 
   return (
-    <section className="glass-panel space-y-4 rounded-[28px] p-4">
-      <div className="flex items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={() => window.history.back()}
-          aria-label="Volver"
-          className="glass-button flex h-10 w-10 items-center justify-center rounded-full text-slate-700"
-        >
-          <ArrowLeft className="h-4 w-4" strokeWidth={2.2} />
-        </button>
-
-        <div className="flex-1 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Ajustes</p>
-          <h2 className="text-lg font-bold text-slate-900">Tema</h2>
+    <section className="rounded-[28px] border border-[#282830] bg-[#161619] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.2)]">
+      <div className="flex items-center justify-between gap-3 pb-3">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#8a8a93]">Ajustes</p>
+          <h2 className="mt-1 text-lg font-bold text-white">Tema y estilo</h2>
         </div>
 
-        <div className="glass-button flex h-10 w-10 items-center justify-center rounded-full text-slate-700">
-          <Settings2 className="h-4 w-4" strokeWidth={2.2} />
+        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#282830] bg-[#0d0d0e] text-[#8a8a93]">
+          <SlidersHorizontal className="h-4 w-4" strokeWidth={2.2} />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          onClick={() => setTheme('light')}
-          className={`rounded-2xl border px-3 py-3 text-sm font-semibold transition ${
-            theme === 'light' ? 'border-white/40 bg-slate-900 text-white shadow-lg shadow-slate-900/15' : 'border-white/30 bg-white/10 text-slate-700 backdrop-blur-md'
-          }`}
-        >
-          Claro
-        </button>
-        <button
-          type="button"
-          onClick={() => setTheme('dark')}
-          className={`rounded-2xl border px-3 py-3 text-sm font-semibold transition ${
-            theme === 'dark' ? 'border-white/40 bg-slate-900 text-white shadow-lg shadow-slate-900/15' : 'border-white/30 bg-white/10 text-slate-700 backdrop-blur-md'
-          }`}
-        >
-          Oscuro
-        </button>
-      </div>
+      <div className="space-y-4">
+        <div className="rounded-2xl border border-[#282830] bg-[#0d0d0e] p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Modo</span>
+          </div>
 
-      <div>
-        <p className="mb-2 text-sm font-medium text-slate-600">Colores pastel</p>
-        <div className="flex items-center justify-between gap-2">
-          {SWATCHES.map((swatch) => (
+          <div className="grid grid-cols-2 gap-2">
             <button
-              key={swatch.id}
               type="button"
-              aria-label={`Seleccionar color ${swatch.name}`}
-              onClick={() => setAccent(swatch.value)}
-              className={`h-11 w-11 rounded-full border-2 transition ${
-                accent === swatch.value ? 'scale-110 border-slate-900 shadow-md' : 'border-white/70 hover:scale-105'
+              onClick={() => setTheme('light')}
+              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition ${
+                theme === 'light'
+                  ? 'border-[#d97724]/40 bg-[#d97724]/10 text-[#f7c07a]'
+                  : 'border-[#282830] bg-[#161619] text-[#8a8a93]'
               }`}
-              style={{ background: swatch.value }}
-            />
-          ))}
+            >
+              Claro
+            </button>
+            <button
+              type="button"
+              onClick={() => setTheme('dark')}
+              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition ${
+                theme === 'dark'
+                  ? 'border-[#d97724]/40 bg-[#d97724]/10 text-[#f7c07a]'
+                  : 'border-[#282830] bg-[#161619] text-[#8a8a93]'
+              }`}
+            >
+              Oscuro
+            </button>
+          </div>
         </div>
-      </div>
 
-      <button
-        type="button"
-        onClick={saveTheme}
-        disabled={!isDirty}
-        className="flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
-        style={{ background: 'linear-gradient(135deg, var(--brand-soft), var(--brand))' }}
-      >
-        <Check className="h-4 w-4" strokeWidth={2.2} />
-        Guardar cambios
-      </button>
+        <div className="rounded-2xl border border-[#282830] bg-[#0d0d0e] p-3">
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8a8a93]">Acento</p>
+          <div className="flex items-center justify-between gap-2">
+            {SWATCHES.map((swatch) => (
+              <button
+                key={swatch.id}
+                type="button"
+                aria-label={`Seleccionar color ${swatch.name}`}
+                onClick={() => setAccent(swatch.value)}
+                className={`h-9 w-9 rounded-full border-2 transition ${
+                  accent === swatch.value ? 'scale-110 border-white shadow-lg shadow-black/20' : 'border-transparent hover:scale-105'
+                }`}
+                style={{ background: swatch.value }}
+              />
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={saveTheme}
+          disabled={!isDirty}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#d97724_0%,#e08a3e_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_16px_32px_rgba(217,119,36,0.22)] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <Check className="h-4 w-4" strokeWidth={2.2} />
+          Guardar cambios
+        </button>
+      </div>
     </section>
   )
 }
